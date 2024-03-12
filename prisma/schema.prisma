@@ -13,3 +13,35 @@ datasource db {
   url = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+model Form {
+  id Int @id @default(autoincrement())
+  userId String // Refers to the owner of the form
+
+  name String
+  description String @default("")
+  content String @default("")
+
+  visits Int @default(0)
+  submissions Int @default(0)
+
+  published Boolean @default(false)
+  shareURL String @default(uuid())
+
+  FormSubmissions FormSubmissions[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model FormSubmissions {
+  id Int @id @default(autoincrement())
+  formId Int
+
+  form Form @relation(fields: [formId], references: [id])
+
+  content String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}

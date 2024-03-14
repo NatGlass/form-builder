@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
+        <body className={`min-h-screen ${inter.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
